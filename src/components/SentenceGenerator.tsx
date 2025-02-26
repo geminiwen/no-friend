@@ -4,6 +4,12 @@ import { useState } from 'react';
 import { Input, Button } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 
+const getApiPath = () => {
+  // 根据环境判断 API 路径
+  const basePath = process.env.NODE_ENV == "production" ? "/friend" : "";
+  return `${basePath}/api/completion`;
+};
+
 export default function SentenceGenerator() {
   const [input, setInput] = useState('');
   const [result, setResult] = useState('');
@@ -17,7 +23,7 @@ export default function SentenceGenerator() {
     setResult(''); // Clear previous result
     setReasoning(''); // Clear previous reasoning
     try {
-      const response = await fetch(`/friend/api/completion?query=${encodeURIComponent(input)}`);
+      const response = await fetch(`${getApiPath()}?query=${encodeURIComponent(input)}`);
       const reader = response.body?.getReader();
       const decoder = new TextDecoder();
 
