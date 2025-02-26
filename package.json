@@ -8,6 +8,7 @@
     "build:vercel": "NODE_ENV=vercel next build",
     "start:development": "NODE_ENV=development next start",
     "start": "NODE_ENV=production next start",
+    "start:vercel": "NODE_ENV=vercel next start",
     "lint": "next lint"
   },
   "dependencies": {
