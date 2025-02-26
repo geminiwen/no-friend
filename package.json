@@ -3,12 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "NODE_ENV=development next dev --turbopack",
+    "dev": "NODE_ENV=development DEPLOY_ENV=development next dev --turbopack",
     "build": "NODE_ENV=production next build",
-    "build:vercel": "NODE_ENV=vercel next build",
-    "start:development": "NODE_ENV=development next start",
-    "start": "NODE_ENV=production next start",
-    "start:vercel": "NODE_ENV=vercel next start",
+    "build:vercel": "DEPLOY_ENV=vercel next build",
+    "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {

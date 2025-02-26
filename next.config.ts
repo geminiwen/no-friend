@@ -1,8 +1,8 @@
 import { type NextConfig } from "next/types";
 
 const getBasePath = () => {
-  const nodeEnv = process.env.NODE_ENV || 'development';
-  switch (nodeEnv) {
+  const deployEnv = process.env.DEPLOY_ENV || 'development';
+  switch (deployEnv) {
     case "production" : {
       return "/friend"
     }

@@ -6,7 +6,7 @@ import { SearchOutlined } from "@ant-design/icons";
 
 const getApiPath = () => {
   // 根据环境判断 API 路径
-  const basePath = process.env.NODE_ENV == "production" ? "/friend" : "";
+  const basePath = process.env.DEPLOY_ENV == "production" ? "/friend" : "";
   return `${basePath}/api/completion`;
 };
 
