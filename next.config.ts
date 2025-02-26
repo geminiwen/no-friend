@@ -2,13 +2,14 @@ import { type NextConfig } from "next/types";
 
 const getBasePath = () => {
   const nodeEnv = process.env.NODE_ENV || 'development';
-  const deployEnv = process.env.DEPLOY_ENV;
-
-  if (nodeEnv === 'development' || deployEnv === 'vercel') {
-    return '';
+  switch (nodeEnv) {
+    case "production" : {
+      return "/friend"
+    }
+    default: {
+      return '';
+    }
   }
-
-  return '/friend';
 };
 
 const nextConfig: NextConfig = {
