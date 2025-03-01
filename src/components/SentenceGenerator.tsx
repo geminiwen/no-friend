@@ -6,14 +6,13 @@ import { SearchOutlined } from "@ant-design/icons";
 
 const getApiPath = () => {
   // 根据环境判断 API 路径
-  const basePath = process.env.DEPLOY_ENV == "production" ? "/friend" : "";
+  const basePath = process.env.NEXT_PUBLIC_DEPLOY_ENV == "production" ? "/friend" : "";
   return `${basePath}/api/completion`;
 };
 
 export default function SentenceGenerator() {
   const [input, setInput] = useState('');
   const [result, setResult] = useState('');
-  const [reasoning, setReasoning] = useState('');
   const [loading, setLoading] = useState(false);
 
   const handleGenerate = async () => {
@@ -21,7 +20,6 @@ export default function SentenceGenerator() {
     
     setLoading(true);
     setResult(''); // Clear previous result
-    setReasoning(''); // Clear previous reasoning
     try {
       const response = await fetch(`${getApiPath()}?query=${encodeURIComponent(input)}`);
       const reader = response.body?.getReader();
@@ -42,9 +40,7 @@ export default function SentenceGenerator() {
             if (content === '[DONE]') continue;
             try {
               const data = JSON.parse(content);
-              if (data.type === 'reasoning') {
-                setReasoning(prev => prev + data.content);
-              } else if (data.type === 'content') {
+              if (data.type === 'content') {
                 setResult(prev => prev + data.content);
               }
             } catch (e) {
@@ -84,14 +80,6 @@ export default function SentenceGenerator() {
         />
       </div>
       <div className="w-full">
-        {reasoning && (
-          <div className="mb-6">
-            <h2 className="text-lg font-medium mb-4 text-[#1a1a1a]">思考过程</h2>
-            <div className="max-h-[200px] overflow-y-auto bg-gray-50 rounded-lg border border-gray-200 p-4">
-              <p className="text-base text-[#666666] whitespace-pre-wrap">{reasoning}</p>
-            </div>
-          </div>
-        )}
         <div>
           <h2 className="text-lg font-medium mb-4 text-[#1a1a1a]">生成结果</h2>
           <p className="text-base text-[#2b2b2b]">{result || '生成的朋友圈内容将在这里显示...'}</p>
